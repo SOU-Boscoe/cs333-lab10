@@ -9,6 +9,7 @@ Do each step below and answer the questions right here in this README as you go 
 
 You need:
 - the todo app from week 8 (`333FullToDo-2026.zip` from Slack), running on your laptop
+- Node 22.12 or newer on your laptop (`node -v`)
 - your server, the same setup as Lab 6: you can `ssh yourfirstname@your-server-address`, pm2 is installed, and your nginx has the `location /api/` block
 - MongoDB running on your server (week 6)
 
@@ -206,7 +207,7 @@ Right now the back end has no error handling at all. Let's see what that does.
 
 ```bash
 pm2 list
-pm2 logs todo --err --lines 15
+pm2 logs todo --err --lines 40
 ```
 
 Question 7: what did the browser show? What happened to the `↺` number for `todo` in `pm2 list`? What's the error in the log (the first line that says what went wrong)?
@@ -336,3 +337,5 @@ Front end: build again on your laptop and copy `dist/*` up again (step 11).
 | Way B: `/todo/` shows a blank page | You built without `--base=/todo/` | `npm run build -- --base=/todo/` and copy `dist/*` into `/var/www/html/todo/` again |
 | `scp: ... Permission denied` or `mkdir: ... Permission denied` in `/var/www/html` | `/var/www/html` doesn't belong to you yet | On the server: `sudo chown -R $USER:$USER /var/www/html` (week 6) |
 | `/api/notanid` still crashes after your fix | The server still has the old `routes.js`, or you didn't restart | Step 18: copy `routes/routes.js` up again, then `pm2 restart todo` |
+| `Vite requires Node.js version 20.19+ or 22.12+` | Your laptop's Node is too old for the todo app's front end | Install the current LTS from nodejs.org, close the terminal, open a new one, and check `node -v` |
+| The browser won't open your site, or shows a warning that it's not secure | Your server only has `http://`, no `https://`, and the browser tried `https://` or wants you to confirm | Type the whole address with `http://` at the front. If you get a warning page, choose to continue to the site |
